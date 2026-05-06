@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Viewer</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: canvas;
+        color: canvastext;
+      }
+
+      button {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.8rem 1.2rem;
+        border-radius: 0.7rem;
+        border: 1px solid currentColor;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="importBtn" type="button">Import from file</button>
+    <input id="filePicker" type="file" accept=".html,text/html" hidden />
+
+    <script>
+      const importBtn = document.getElementById("importBtn");
+      const filePicker = document.getElementById("filePicker");
+
+      importBtn.addEventListener("click", () => {
+        filePicker.click();
+      });
+
+      filePicker.addEventListener("change", () => {
+        const [file] = filePicker.files;
+        if (!file) {
+          return;
+        }
+
+        const fileUrl = URL.createObjectURL(file);
+        window.open(fileUrl, "_blank", "noopener,noreferrer");
+        filePicker.value = "";
+      });
+    </script>
+  </body>
+</html>
